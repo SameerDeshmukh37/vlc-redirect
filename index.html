@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Opening VLC…</title>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const videoUrl = params.get("url");
+
+    if (videoUrl) {
+      const deepLink =
+        "vlchelper://play?url=" + encodeURIComponent(videoUrl);
+
+      window.location.href = deepLink;
+    }
+  </script>
+</head>
+<body>
+  <p>Opening in VLC…</p>
+</body>
+</html>
