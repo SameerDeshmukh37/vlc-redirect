@@ -17,6 +17,14 @@
       let deepLink = "";
 
       switch (app.toLowerCase()) {
+
+        case "aurexplayer":
+          deepLink =
+            "aurexplayer://play?url=" +
+            encodeURIComponent(videoUrl) +
+            (title ? "&title=" + encodeURIComponent(title) : "");
+          break;
+
         case "vlc":
           deepLink =
             "vlchelper://play?url=" +
@@ -34,7 +42,7 @@
 
         default:
           deepLink =
-            "vlchelper://play?url=" + encodeURIComponent(videoUrl);
+            "aurexplayer://play?url=" + encodeURIComponent(videoUrl);
       }
 
       window.location.href = deepLink;
