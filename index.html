@@ -2,20 +2,47 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Opening VLC…</title>
+  <title>Opening Player…</title>
+
   <script>
     const params = new URLSearchParams(window.location.search);
+
     const videoUrl = params.get("url");
+    const app = params.get("app") || "vlc";
+    const title = params.get("title") || "";
+    const position = params.get("position") || "";
+    const headers = params.get("headers") || "";
 
     if (videoUrl) {
-      const deepLink =
-        "vlchelper://play?url=" + encodeURIComponent(videoUrl);
+      let deepLink = "";
+
+      switch (app.toLowerCase()) {
+        case "vlc":
+          deepLink =
+            "vlchelper://play?url=" +
+            encodeURIComponent(videoUrl) +
+            (title ? "&title=" + encodeURIComponent(title) : "") +
+            (position ? "&position=" + encodeURIComponent(position) : "") +
+            (headers ? "&headers=" + encodeURIComponent(headers) : "");
+          break;
+
+        case "mx":
+          deepLink =
+            "intent:" + videoUrl +
+            "#Intent;package=com.mxtech.videoplayer.ad;end";
+          break;
+
+        default:
+          deepLink =
+            "vlchelper://play?url=" + encodeURIComponent(videoUrl);
+      }
 
       window.location.href = deepLink;
     }
   </script>
 </head>
+
 <body>
-  <p>Opening in VLC…</p>
+  <p>Opening player…</p>
 </body>
 </html>
